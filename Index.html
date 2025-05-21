@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificação Bem-Sucedida</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background-image: url('https://cdn.discordapp.com/attachments/1361327750425743526/1364122820208230430/1_Q5_t-R0xRs07wW1Kf8rCSw.gif?ex=680885e0&is=68073460&hm=ad922704667cfc1882c8904c2323ddc42d1b33248d59aa650f668b0c6699e192&');
+      background-size: cover; /* Faz com que o GIF cubra toda a tela */
+      background-position: center; /* Centraliza o GIF */
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      flex-direction: column;
+      animation: fadeToGreen 3s ease-in-out forwards;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+      box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .hidden {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .server-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 15px;
+      object-fit: cover;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 10px;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #00ffcc, #00ff88);
+      transition: width 0.5s ease-in-out;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s ease-in-out;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      margin-top: 15px;
+      opacity: 0; /* Initially hidden */
+    }
+
+    .button.show {
+      opacity: 1; /* Show button when ready */
+    }
+
+    .button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #bdbdbd;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .discord-link a {
+      font-size: 12px;
+      font-weight: bold;
+      animation: piscar 1s infinite;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes piscar {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container hidden" id="verificationContainer">
+    <!-- Imagem do Discord fornecida -->
+    <img id="discordImage" class="server-icon" src="https://cdn.discordapp.com/avatars/1288328844247568398/a_f50aa6d5018f0dd4cc107a21c827a3fc.gif?size=2048" alt="Imagem do Discord">
+
+    <h2 id="statusText">Verificando...</h2>
+
+    <p id="progressText">0%</p>
+
+    <div class="progress-bar" id="progressContainer">
+      <div class="progress" id="progressBar"></div>
+    </div>
+
+    <!-- Botão "Volte ao Discord" -->
+    <button class="button" id="discordButton" onclick="window.location.href='https://discord.gg/76hg3aKp'">Volte ao Discord</button>
+  </div>
+
+  <footer>
+    <div class="discord-link">
+      <a href="" target="_blank">Developed by Rzwkkj DΣV</a>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const container = document.getElementById("verificationContainer");
+      const progressBar = document.getElementById("progressBar");
+      const progressText = document.getElementById("progressText");
+      const progressContainer = document.getElementById("progressContainer");
+      const statusText = document.getElementById("statusText");
+      const discordButton = document.getElementById("discordButton");
+
+      let progress = 0;
+
+      // Simulando a verificação do Discord
+      setTimeout(() => {
+        container.classList.remove("hidden");
+      }, 300);
+
+      const interval = setInterval(() => {
+        progress += 2;
+        progressBar.style.width = progress + "%";
+        progressText.textContent = progress + "%";
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            progressText.style.display = "none"; // Esconde o texto de progresso
+            progressContainer.style.display = "none"; // Esconde a barra de progresso
+            statusText.textContent = "Verificação Sucedida!"; // Atualiza o texto
+            discordButton.classList.add("show"); // Exibe o botão "Volte ao Discord"
+          }, 500);
+        }
+      }, 50); // Acelerei um pouco a contagem, ajustando o intervalo.
+    });
+  </script>
+
+</body>
+</html>
